@@ -5,6 +5,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal {
+
+    private Integer id;
+
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -35,5 +48,15 @@ public class Meal {
 
     public LocalTime getTime() {
         return dateTime.toLocalTime();
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                '}';
     }
 }
