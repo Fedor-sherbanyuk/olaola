@@ -3,7 +3,7 @@ package ru.javawebinar.topjava.util;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
-import ru.javawebinar.topjava.web.UserServlet;
+//import ru.javawebinar.topjava.web.UserServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

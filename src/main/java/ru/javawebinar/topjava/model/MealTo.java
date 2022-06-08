@@ -14,11 +14,23 @@ public class MealTo {
         this.id = id;
     }
 
-    private final LocalDateTime dateTime;
+    private  LocalDateTime dateTime;
 
-    private final String description;
+    private  String description;
 
-    private final int calories;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    private  int calories;
 
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -36,7 +48,11 @@ public class MealTo {
         return excess;
     }
 
-    private final boolean excess;
+    public void setExcess(boolean excess) {
+        this.excess = excess;
+    }
+
+    private boolean excess;
 
     public MealTo(LocalDateTime dateTime, String description, int calories, boolean excess) {
         this.dateTime = dateTime;
