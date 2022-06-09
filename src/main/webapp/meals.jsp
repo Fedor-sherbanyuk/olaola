@@ -43,7 +43,7 @@
 <%--</c:forEach>--%>
 <%--    </tbody>--%>
 <%--</table>--%>
-<%--&lt;%&ndash;<p><a href="index.html">Home</a></p>&ndash;%&gt;--%>
+<%--&lt;%&ndash;<p><a href="index.jsp">Home</a></p>&ndash;%&gt;--%>
 
 <%--</body>--%>
 <%--</html>--%>

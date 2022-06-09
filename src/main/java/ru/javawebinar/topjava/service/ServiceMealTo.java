@@ -15,45 +15,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ServiceMealTo implements RepositoryMeal {
 
     private MapManyClass mapManyClass = new MapManyClass();
-    private Map<AtomicInteger,MealTo> atomicIntegerMealToMap=mapManyClass.initMealToMap();
+    private Map<AtomicInteger, MealTo> atomicIntegerMealToMap = mapManyClass.initMealToMap();
 
 
-    private Connection connection;
+
+
     @Override
     public void addMealTo(MealTo mealTo) {
-        try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into mealTos(dateTime,description,calories,excess) values (?, ?, ?, ? )");
-            // Parameters start with 1
-
-            preparedStatement.setDate(1, Date.valueOf(mealTo.getDateTime().toLocalDate()));
-            preparedStatement.setString(2, mealTo.getDescription());
-            preparedStatement.setString(3, String.valueOf(mealTo.getCalories()));
-            preparedStatement.setString(4, String.valueOf(mealTo.isExcess()));
-            preparedStatement.executeUpdate();
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         atomicIntegerMealToMap.put(new AtomicInteger(atomicIntegerMealToMap.size() + 1), mealTo);
         mapManyClass.setMealToMap(atomicIntegerMealToMap);
     }
 
     @Override
     public void delete(int mealToId) throws Exception {
-        try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from mealTos where mealToId=?");
-            // Parameters start with 1
-            preparedStatement.setInt(1, mealToId);
-            preparedStatement.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealToId))) {
             atomicIntegerMealToMap.remove(new AtomicInteger(mealToId));
         } else {
@@ -64,22 +39,7 @@ public class ServiceMealTo implements RepositoryMeal {
 
     @Override
     public void updateMealTo(MealTo mealTo) {
-        try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("update mealTos set dateTime=?, description=?, calories=?, excess=?" +
-                            "where id=?");
-            // Parameters start with 1
-            preparedStatement.setDate(1, Date.valueOf(mealTo.getDateTime().toLocalDate()));
-            preparedStatement.setString(2, mealTo.getDescription());
-            preparedStatement.setString(3, String.valueOf(mealTo.getCalories()));
-            preparedStatement.setString(4, String.valueOf(mealTo.isExcess()));
-            preparedStatement.setInt(5, mealTo.getId());
-            preparedStatement.executeUpdate();
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealTo.getId()))) {
             atomicIntegerMealToMap.remove(new AtomicInteger(mealTo.getId()));
@@ -92,63 +52,107 @@ public class ServiceMealTo implements RepositoryMeal {
     @Override
     public List<MealTo> getAllMealTo() {
 
-        List<MealTo> mealTos = new ArrayList<MealTo>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from mealTos");
-            while (rs.next()) {
-                MealTo mealTo = null;
-                mealTo.setId(rs.getInt("id"));
-                mealTo.setDescription(rs.getString("description"));
-                mealTo.setCalories(Integer.parseInt(rs.getString("calories")));
-
-                mealTo.setDateTime(LocalDateTime.parse(String.valueOf(rs.getDate("dateTime"))));
-                mealTo.setExcess(Boolean.parseBoolean(rs.getString("excess")));
-                mealTos.add(mealTo);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return mealTos;
+        return new ArrayList<>(atomicIntegerMealToMap.values());
     }
-
-//        return new ArrayList<>(atomicIntegerMealToMap.values());
-//    }
 
     @Override
     public MealTo getMealToById(int mealToId) throws Exception {
 
         MealTo mealTo = null;
-        try {
-            PreparedStatement preparedStatement = connection.
-                    prepareStatement("select * from mealTos where mealToId=?");
-            preparedStatement.setInt(1, mealToId);
-            ResultSet rs = preparedStatement.executeQuery();
 
-            if (rs.next()) {
-                mealTo.setId(rs.getInt("id"));
-                mealTo.setDescription(rs.getString("description"));
-                mealTo.setCalories(Integer.parseInt(rs.getString("calories")));
-
-                mealTo.setDateTime(LocalDateTime.parse(String.valueOf(rs.getDate("dateTime"))));
-                mealTo.setExcess(Boolean.parseBoolean(rs.getString("excess")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealToId))) {
             return mealTo = atomicIntegerMealToMap.get(new AtomicInteger(mealToId));
         } else {
             throw new Exception("НЕТ КЛЮЧА!!!!!!");
         }
-//        return mealTo;
-
 
     }
-
-
-
-
-
 }
+
+//    private Connection connection;
+
+//        try {
+//            PreparedStatement preparedStatement = connection
+//                    .prepareStatement("insert into mealTos(dateTime,description,calories,excess) values (?, ?, ?, ? )");
+//            // Parameters start with 1
+//
+//            preparedStatement.setDate(1, Date.valueOf(mealTo.getDateTime().toLocalDate()));
+//            preparedStatement.setString(2, mealTo.getDescription());
+//            preparedStatement.setString(3, String.valueOf(mealTo.getCalories()));
+//            preparedStatement.setString(4, String.valueOf(mealTo.isExcess()));
+//            preparedStatement.executeUpdate();
+//
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            PreparedStatement preparedStatement = connection
+//                    .prepareStatement("delete from mealTos where mealToId=?");
+//            // Parameters start with 1
+//            preparedStatement.setInt(1, mealToId);
+//            preparedStatement.executeUpdate();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            PreparedStatement preparedStatement = connection
+//                    .prepareStatement("update mealTos set dateTime=?, description=?, calories=?, excess=?" +
+//                            "where id=?");
+//            // Parameters start with 1
+//            preparedStatement.setDate(1, Date.valueOf(mealTo.getDateTime().toLocalDate()));
+//            preparedStatement.setString(2, mealTo.getDescription());
+//            preparedStatement.setString(3, String.valueOf(mealTo.getCalories()));
+//            preparedStatement.setString(4, String.valueOf(mealTo.isExcess()));
+//            preparedStatement.setInt(5, mealTo.getId());
+//            preparedStatement.executeUpdate();
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+//        List<MealTo> mealTos = new ArrayList<MealTo>();
+//        try {
+//            Statement statement = connection.createStatement();
+//            ResultSet rs = statement.executeQuery("select * from mealTos");
+//            while (rs.next()) {
+//                MealTo mealTo = null;
+//                mealTo.setId(rs.getInt("id"));
+//                mealTo.setDescription(rs.getString("description"));
+//                mealTo.setCalories(Integer.parseInt(rs.getString("calories")));
+//
+//                mealTo.setDateTime(LocalDateTime.parse(String.valueOf(rs.getDate("dateTime"))));
+//                mealTo.setExcess(Boolean.parseBoolean(rs.getString("excess")));
+//                mealTos.add(mealTo);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return mealTos;
+//    }
+
+
+//        try {
+//            PreparedStatement preparedStatement = connection.
+//                    prepareStatement("select * from mealTos where mealToId=?");
+//            preparedStatement.setInt(1, mealToId);
+//            ResultSet rs = preparedStatement.executeQuery();
+//
+//            if (rs.next()) {
+//                mealTo.setId(rs.getInt("id"));
+//                mealTo.setDescription(rs.getString("description"));
+//                mealTo.setCalories(Integer.parseInt(rs.getString("calories")));
+//
+//                mealTo.setDateTime(LocalDateTime.parse(String.valueOf(rs.getDate("dateTime"))));
+//                mealTo.setExcess(Boolean.parseBoolean(rs.getString("excess")));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }

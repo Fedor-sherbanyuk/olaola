@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -56,9 +55,12 @@ public class MapManyClass {
                 .collect(Collectors.toList());
     }
     public Map<AtomicInteger,MealTo> initMealToMap() {
+       mealMap= new MapManyClass().init();
         List<Meal> mealList= new ArrayList<>(mealMap.values());
         List<MealTo> mealToList= filteredByHtml(mealList,calories);
         Map<AtomicInteger, MealTo> mealToMap = new ConcurrentHashMap<>();
+
+
         for (int i = 0; i < mealToList.size(); i++) {
             mealToMap.put(new AtomicInteger(i),mealToList.get(i));
         }
