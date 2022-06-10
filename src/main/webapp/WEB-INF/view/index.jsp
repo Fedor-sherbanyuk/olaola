@@ -13,7 +13,7 @@
     <%--  <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">--%>
     <title>Show All MealTos</title>
 </head>
-<body>
+<tbody>
 <table border=1>
     <thead>
     <tr>
@@ -25,32 +25,56 @@
         <th colspan=2>Action</th>
     </tr>
     </thead>
-    <tbody>
+<%--    <tbody>--%>
     <br/>
-    <h2>Все пользователи</h2> <br/>
+    <h2>Привет Артем!!!</h2> <br/>
     <c:forEach var="mea" items="${requestScope.atomicIntegerMealToMap}">
-    <ul>
-        <li><c:out value="${mea.id}" /></li>
-        <li><c:out value="${mea.dateTime}"/></li>
+    <tr>
+        <td><c:out value="${mea.id}" /></td>
+        <td><c:out value="${mea.dateTime}"/></td>
 <%--        <li><fmt:formatDate pattern="yyyy-MM-dd" value="${mea.dateTime}"/></li>--%>
-        <li><c:out value="${mea.description}" /></li>
-        <li><c:out value="${mea.calories}" /></li>
-        <li><c:out value="${mea.excess}" /></li>
+        <td><c:out value="${mea.description}" /></td>
+        <td><c:out value="${mea.calories}" /></td>
+        <td><c:out value="${mea.excess}" /></td>
 
-    </ul>
-    <hr/>
+    </tr>
     </c:forEach>
+<%--    <hr/>--%>
 
 
-    <h2>Создание нового пользователя</h2><br />
+</table>
+
+    <h2>Привет Артем????</h2><br />
     <form method="post" action="">
+<%--<c:forEach var="mea" items="${requestScope.atomicIntegerMealToMap}">--%>
+    <tr>
+        <td> idmealTo: <input type ="text" name="mealToid"></td>
+        <td> DateTime: <input type ="text" name="dateTime"></td>
+        <td> Description <input type ="text" name="description"></td>
+        <td> Calories <input type ="text" name="calories"></td>
+        <td> Excess <input type ="text" name="excess"></td>
 
-        <label>input type ="text" name="mealToid"</label>mealToid<br >
-        <label>input type ="text" name="dateTime"</label>DateTime<br >
-        <label>input type ="text" name="description"</label>Description <br >
-        <label>input type ="text" name="calories"</label>Calories <br >
-        <label>input type ="text" name="excess"</label>Excess<br >
+    </tr>
+<%--</c:forEach>--%>
         <input type="submit" value="OK" name="OK"><br>
+    </form>
+</tbody>
+
+</html>
+<%--        <html>--%>
+<%--        <body>--%>
+
+<%--        <form action = "main.jsp" method = "GET">--%>
+<%--            First Name: <input type = "text" name = "first_name">--%>
+<%--            <br />--%>
+<%--            Last Name: <input type = "text" name = "last_name" />--%>
+<%--            <input type = "submit" value = "Submit" />--%>
+<%--        </form>--%>
+
+<%--        </body>--%>
+<%--        </html>--%>
+
+
         <%--  <form method="POST" action='MealServletNew' name="frmAddmealTo">--%>
         <%--    MealTo Id : <input type="text" readonly="readonly" name="mealToid"--%>
         <%--                       value="<c:out value="${mealTo.id}" />" /> <br />--%>
@@ -66,8 +90,9 @@
         <%--    Excess : <input type="text" name="excess"--%>
         <%--                    value="<c:out value="${mealTo.excess}" />" /> <br /> <input--%>
         <%--          type="submit" value="Submit" />--%>
-    </form>
-    <p><a href="index.html">Home</a></p>
+
+
+<%--    <p><a href="index.html">Home</a></p>--%>
 
 
     <%--    <tr>--%>
@@ -81,10 +106,9 @@
     <%--    </tr>--%>
     <%--  </c:forEach>--%>
     <%--  </tbody>--%>
-    <%--</table>--%>
+    <%--
     <%--<p><a href="MealServletNew?action=insert">Add MealTo</a></p> &lt;%&ndash;///что это или как добавить???&ndash;%&gt;--%>
-</body>
-</html>
+
 <%--
   Created by IntelliJ IDEA.
   User: Admin

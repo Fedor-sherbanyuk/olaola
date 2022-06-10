@@ -48,23 +48,23 @@ public class MealServletNew extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         request.setCharacterEncoding("UTF8");
         try {
-        if (!requestIsValid(request)) {
-            doGet(request, resp);
-        }
-        MealTo mealTo = null;
-        String description=(request.getParameter("description"));
-        String calories= (request.getParameter("calories"));
-        String excess =(request.getParameter("excess"));
+//        if (!requestIsValid(request)) {
+//            doGet(request, resp);
+//        }
+
+       final String description=request.getParameter("description");
+            final String calories= (request.getParameter("calories"));
+            final String excess =(request.getParameter("excess"));
 
 
-            LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
+            final   LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
             String date = dtf.format(dateTime);
         LocalDateTime localDateTime=(LocalDateTime.parse(date));
 
 
 
-            String mealToid = request.getParameter("mealToid");
+            final String mealToid = request.getParameter("mealToid");
             if (mealToid == null || mealToid.isEmpty()) {
 
                 atomicIntegerMealToMap1.put(new AtomicInteger(atomicIntegerMealToMap1.size() + 1), new MealTo(
@@ -74,45 +74,41 @@ public class MealServletNew extends HttpServlet {
                     if(!atomicIntegerMealToMap.contains(o)){
                         atomicIntegerMealToMap.add(o.getValue());
                     }
-
                 }
-
             } else {
-                Integer id = (Integer.parseInt(mealToid));
-                atomicIntegerMealToMap1.put(new AtomicInteger(id), mealTo);
+                int id = (Integer.parseInt(mealToid));
+                atomicIntegerMealToMap1.put(new AtomicInteger(id), new MealTo(localDateTime,description,Integer.parseInt(calories),Boolean.parseBoolean(excess)));
                 for (Map.Entry<AtomicInteger, MealTo> o :atomicIntegerMealToMap1.entrySet() ){
                     if(!atomicIntegerMealToMap.contains(o)){
                         atomicIntegerMealToMap.add(o.getValue());
                     }
-
                 }
-
             }
             doGet(request, resp);
-        }catch (Exception x){
+        }catch (Exception ignored){
 
         }
     }
-    private boolean requestIsValid(final HttpServletRequest request) {
-        MealTo mealTo = null;
-        mealTo.setDescription(request.getParameter("description"));
-        mealTo.setCalories(Integer.parseInt(request.getParameter("calories")));
-        mealTo.setExcess(Boolean.parseBoolean(request.getParameter("excess")));
-
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
-            String text = dtf.format(dateTime);
-            mealTo.setDateTime(LocalDateTime.parse(text));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-            String mealToid = request.getParameter("mealToid");
-            return mealTo.getDateTime() != null && mealTo.getCalories() >= 0 &&
-                    mealTo.getDescription() != null;
-        }
+//    private boolean requestIsValid(final HttpServletRequest request) {
+//        MealTo mealTo = null;
+//        mealTo.setDescription(request.getParameter("description"));
+//        mealTo.setCalories(Integer.parseInt(request.getParameter("calories")));
+//        mealTo.setExcess(Boolean.parseBoolean(request.getParameter("excess")));
+//
+//        try {
+//            LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+//            String text = dtf.format(dateTime);
+//            mealTo.setDateTime(LocalDateTime.parse(text));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//            String mealToid = request.getParameter("mealToid");
+//            return mealTo.getDateTime() != null && mealTo.getCalories() >= 0 &&
+//                    mealTo.getDescription() != null;
+//        }
     }
 
     //        try {
