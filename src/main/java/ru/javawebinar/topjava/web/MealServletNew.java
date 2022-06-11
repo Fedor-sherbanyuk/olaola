@@ -3,11 +3,9 @@ package ru.javawebinar.topjava.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.model.MealTo;
-import ru.javawebinar.topjava.repository.RepositoryMeal;
 import ru.javawebinar.topjava.service.ServiceMealTo;
 import ru.javawebinar.topjava.util.MapManyClass;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,80 +13,92 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class MealServletNew extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServletNew.class);
     private final ServiceMealTo repositoryMealTo = new ServiceMealTo();
-    private final static String INSERT_OR_EDIT = "/mealTo.jsp";
-    private final static String index = "/WEB-INF/view/index.jsp";
+    private final static String INSERT_OR_EDIT = "/meals.jsp";
+    private final static String update = "/update.jsp";
     private MapManyClass mapManyClass = new MapManyClass();
-    private Map<AtomicInteger, MealTo> atomicIntegerMealToMap1;
-    private List<MealTo> atomicIntegerMealToMap;
+    private Map<Integer, MealTo> meals;
+//  private List<MealTo> meals;
+//    private MealTo meals;
+
     @Override
     public void init() throws ServletException {
-       atomicIntegerMealToMap1 = mapManyClass.initMealToMap();
-        atomicIntegerMealToMap=new CopyOnWriteArrayList<>();
-        for (Map.Entry<AtomicInteger, MealTo> o :atomicIntegerMealToMap1.entrySet() ){
-            atomicIntegerMealToMap.add(o.getValue());
-        }
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("atomicIntegerMealToMap", atomicIntegerMealToMap);
-        request.getRequestDispatcher(index).forward(request, response);
+        meals = mapManyClass.initMealToMap();
+//        meals = new CopyOnWriteArrayList<>();
+//        for (Map.Entry<AtomicInteger, MealTo> o : atomicIntegerMealToMap1.entrySet()) {
+//            meals.add(o.getValue());
+//          //  meals =  new MealTo(LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500,false);
+//     }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF8");
-        try {
-//        if (!requestIsValid(request)) {
-//            doGet(request, resp);
-//        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Enter do MealTo");
 
-       final String description=request.getParameter("description");
-            final String calories= (request.getParameter("calories"));
-            final String excess =(request.getParameter("excess"));
+        String action = request.getParameter("action");
+        request.setAttribute("meals", meals);
+        switch (action == null ? "info" : action) {
+            case "update":
+                request.getRequestDispatcher(update).forward(request, response);
+                break;
+            case "info":
+            default:
+                request.getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
+                break;
+        }
 
+    }
 
-            final   LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Enter doPost");
+
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+
+        if ("submit".equals(action)) {
+            String description = request.getParameter("description");
+            String calories = (request.getParameter("calories"));
+            String excess = (request.getParameter("excess"));
+            LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
             String date = dtf.format(dateTime);
-        LocalDateTime localDateTime=(LocalDateTime.parse(date));
+            LocalDateTime localDateTime = (LocalDateTime.parse(date));
+            String id = request.getParameter("id");
 
+            if (id == null || id.isEmpty()) {
+//Integer idNew=Integer.parseInt(id);
+                meals.put((meals.size()+Integer.parseInt(id)), new MealTo(localDateTime,
+                        description, Integer.parseInt(calories), Boolean.parseBoolean(excess)));
+//                meals=  new MealTo(
+//                        localDateTime, description, Integer.parseInt(calories), Boolean.parseBoolean(excess)
+//                );
+//
+            }     else {
+                int idNew = (Integer.parseInt(id));
 
-
-            final String mealToid = request.getParameter("mealToid");
-            if (mealToid == null || mealToid.isEmpty()) {
-
-                atomicIntegerMealToMap1.put(new AtomicInteger(atomicIntegerMealToMap1.size() + 1), new MealTo(
-                        localDateTime,description,Integer.parseInt(calories),Boolean.parseBoolean(excess)
-                ));
-                for (Map.Entry<AtomicInteger, MealTo> o :atomicIntegerMealToMap1.entrySet() ){
-                    if(!atomicIntegerMealToMap.contains(o)){
-                        atomicIntegerMealToMap.add(o.getValue());
-                    }
+                for (Map.Entry<Integer, MealTo> o : meals.entrySet()) {
+                    meals.put((Integer.parseInt(id)), new MealTo(localDateTime,
+                            description, Integer.parseInt(calories), Boolean.parseBoolean(excess)));
                 }
-            } else {
-                int id = (Integer.parseInt(mealToid));
-                atomicIntegerMealToMap1.put(new AtomicInteger(id), new MealTo(localDateTime,description,Integer.parseInt(calories),Boolean.parseBoolean(excess)));
-                for (Map.Entry<AtomicInteger, MealTo> o :atomicIntegerMealToMap1.entrySet() ){
-                    if(!atomicIntegerMealToMap.contains(o)){
-                        atomicIntegerMealToMap.add(o.getValue());
-                    }
+//                    if (!meals.contains(o)) {
+//                        meals.add(o.getValue());
+//                    }
                 }
-            }
-            doGet(request, resp);
-        }catch (Exception ignored){
 
+//            }
+
+            request.setAttribute("meals", meals);
+            request.getRequestDispatcher(INSERT_OR_EDIT).forward(request, response);
         }
+
     }
+}
 //    private boolean requestIsValid(final HttpServletRequest request) {
 //        MealTo mealTo = null;
 //        mealTo.setDescription(request.getParameter("description"));
@@ -109,7 +119,7 @@ public class MealServletNew extends HttpServlet {
 //            return mealTo.getDateTime() != null && mealTo.getCalories() >= 0 &&
 //                    mealTo.getDescription() != null;
 //        }
-    }
+
 
     //        try {
 //            String forward ="";

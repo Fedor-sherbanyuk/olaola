@@ -15,22 +15,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ServiceMealTo implements RepositoryMeal {
 
     private MapManyClass mapManyClass = new MapManyClass();
-    private Map<AtomicInteger, MealTo> atomicIntegerMealToMap = mapManyClass.initMealToMap();
+    private Map<Integer, MealTo> atomicIntegerMealToMap = mapManyClass.initMealToMap();
 
 
 
 
     @Override
     public void addMealTo(MealTo mealTo) {
-        atomicIntegerMealToMap.put(new AtomicInteger(atomicIntegerMealToMap.size() + 1), mealTo);
+        atomicIntegerMealToMap.put(new Integer(atomicIntegerMealToMap.size() + 1), mealTo);
         mapManyClass.setMealToMap(atomicIntegerMealToMap);
     }
 
     @Override
     public void delete(int mealToId) throws Exception {
 
-        if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealToId))) {
-            atomicIntegerMealToMap.remove(new AtomicInteger(mealToId));
+        if (atomicIntegerMealToMap.containsKey(new Integer(mealToId))) {
+            atomicIntegerMealToMap.remove(new Integer(mealToId));
         } else {
 
             throw new Exception("НЕТ КЛЮЧА!!!!!!");
@@ -41,11 +41,11 @@ public class ServiceMealTo implements RepositoryMeal {
     public void updateMealTo(MealTo mealTo) {
 
 
-        if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealTo.getId()))) {
-            atomicIntegerMealToMap.remove(new AtomicInteger(mealTo.getId()));
-            atomicIntegerMealToMap.put(new AtomicInteger(mealTo.getId()), mealTo);
+        if (atomicIntegerMealToMap.containsKey(new Integer(mealTo.getId()))) {
+            atomicIntegerMealToMap.remove(new Integer(mealTo.getId()));
+            atomicIntegerMealToMap.put(new Integer(mealTo.getId()), mealTo);
         } else {
-            atomicIntegerMealToMap.put(new AtomicInteger(mealTo.getId()), mealTo);
+            atomicIntegerMealToMap.put(new Integer(mealTo.getId()), mealTo);
         }
     }
 
@@ -60,8 +60,8 @@ public class ServiceMealTo implements RepositoryMeal {
 
         MealTo mealTo = null;
 
-        if (atomicIntegerMealToMap.containsKey(new AtomicInteger(mealToId))) {
-            return mealTo = atomicIntegerMealToMap.get(new AtomicInteger(mealToId));
+        if (atomicIntegerMealToMap.containsKey(new Integer(mealToId))) {
+            return mealTo = atomicIntegerMealToMap.get(new Integer(mealToId));
         } else {
             throw new Exception("НЕТ КЛЮЧА!!!!!!");
         }
