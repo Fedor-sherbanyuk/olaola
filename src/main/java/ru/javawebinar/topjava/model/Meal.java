@@ -41,6 +41,16 @@ public class Meal {
         this.description = description;
         this.calories = calories;
     }
+    public boolean isNew(){
+        return id==null;
+    }
+
+    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+        this.id = id;
+        this.dateTime = dateTime;
+        this.description = description;
+        this.calories = calories;
+    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

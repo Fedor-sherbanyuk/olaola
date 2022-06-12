@@ -39,9 +39,11 @@ public class DeleteUserServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/");
 
         } else {
-            meal.remove(Integer.valueOf(req.getParameter("id")));
+           Integer id=Integer.parseInt(req.getParameter("id"));
+            meal.remove(meal.get(id));
 
             resp.sendRedirect(req.getContextPath() + "/");
         }
     }
+
 }

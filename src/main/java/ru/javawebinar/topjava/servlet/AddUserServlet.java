@@ -44,17 +44,22 @@ public class AddUserServlet extends HttpServlet {
 
         if (Utils.requestIsValid(request)) {
 
-            String description = request.getParameter("description");
-            String calories = (request.getParameter("calories"));
-            String excess = (request.getParameter("excess"));
-            LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
-            String date = dtf.format(dateTime);
-            LocalDateTime localDateTime = (LocalDateTime.parse(date));
+            final   String description = request.getParameter("description");
+            final String calories = (request.getParameter("calories"));
+            final  String excess = (request.getParameter("excess"));
+            final   LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
+//            final  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+//            final  String date = dtf.format(dateTime);
+//            final  LocalDateTime localDateTime = (LocalDateTime.parse(date));
 //            String id = request.getParameter("id");
             final int id = this.id.getAndIncrement();
-            meal.put(id, new MealTo(localDateTime,
-            description, Integer.parseInt(calories), Boolean.parseBoolean(excess)));
+           final MealTo mealTo=new MealTo();
+            mealTo.setId(id);
+            mealTo.setDescription(description);
+            mealTo.setCalories(Integer.parseInt(calories));
+            mealTo.setExcess(Boolean.parseBoolean(excess));
+            mealTo.setDateTime(dateTime);
+            meal.put(id, mealTo);
         }
         resp.sendRedirect(request.getContextPath() + "/");
 

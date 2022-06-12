@@ -3,20 +3,21 @@ package ru.javawebinar.topjava.repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface RepositoryMeal {
 
 
-    void addMealTo(MealTo mealTo);
+    void addMealTo(Meal meal);
 
-    void delete(int mealToId) throws Exception;
+    void delete(int mealId) throws Exception;
 
-    void updateMealTo(MealTo meal);
+    Meal  updateMealTo(int mealId);
 
-    List<MealTo> getAllMealTo();
+    Collection<Meal> getAllMealTo();
 
-    MealTo getMealToById(int mealToId) throws Exception;
+//  MealTo getMealToById(int mealToId) throws Exception;
 
 
 }

@@ -15,8 +15,11 @@
     <ul>
 
         <li>DateTime: <c:out value="${mea.dateTime}"/></li>
+
         <li>Description: <c:out value="${mea.description}"/></li>
+
         <li>Calories: <c:out value="${mea.calories}"/></li>
+
         <li>Excess: <c:out value="${mea.excess}"/></li>
 
         <form method="post" action="<c:url value='/delete'/>">
@@ -41,7 +44,7 @@
     <label><input type="text" name="description"></label>Description<br>
     <label><input type="text" name="calories"></label>Calories<br>
 
-    <label><input type="number" name="excess"></label>Excess<br>
+    <label><input type="text" name="excess"></label>Excess<br>
 
     <input type="submit" value="Ok" name="Ok"><br>
 </form>

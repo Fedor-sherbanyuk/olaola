@@ -28,15 +28,16 @@ public class Utils {
             String calories = (request.getParameter("calories"));
             String excess = (request.getParameter("excess"));
             LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
-            String date = dtf.format(dateTime);
-            LocalDateTime localDateTime = (LocalDateTime.parse(date));
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+//            String date = dtf.format(dateTime);
+//            LocalDateTime localDateTime = (LocalDateTime.parse(date));
 //            String id = request.getParameter("id");
 //&& id.length()>=0&&id!=null
+//        date !=null&&date.length()>0&&&&
+//        excess.length()>0&&excess!=null
         return description != null && description.length() > 0 &&
                 calories != null && calories.length() > 0 &&
-                calories.matches("[+]?\\d+") &&
-                date !=null&&date.length()>0&&excess.length()>0&&excess!=null;
+                calories.matches("[+]?\\d+") ;
 
 
     }

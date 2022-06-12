@@ -43,12 +43,12 @@ public class UpdateUserServlet extends HttpServlet {
             String calories = (request.getParameter("calories"));
             String excess = (request.getParameter("excess"));
             LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
-            String date = dtf.format(dateTime);
-            LocalDateTime localDateTime = (LocalDateTime.parse(date));
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
+//            String date = dtf.format(dateTime);
+//            LocalDateTime localDateTime = (LocalDateTime.parse(date));
             String id = request.getParameter("id");
            MealTo mealTo=meal.get(Integer.parseInt(id));
-           mealTo.setDateTime(localDateTime);
+           mealTo.setDateTime(dateTime);
            mealTo.setExcess(Boolean.parseBoolean(excess));
            mealTo.setCalories(Integer.parseInt(calories));
            mealTo.setDescription(description);

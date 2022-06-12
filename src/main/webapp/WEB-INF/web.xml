@@ -5,51 +5,65 @@
          version="3.1">
 
 
-    <!--Index page for app-->
     <servlet-mapping>
-        <servlet-name>GetStartPageServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>GetStartPageServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.servlet.GetIndexPageServlet</servlet-class>
-    </servlet>
+            <servlet-name>mealServlet</servlet-name>
+            <url-pattern>/meals</url-pattern>
+        </servlet-mapping>
+        <servlet>
+            <servlet-name>mealServlet</servlet-name>
+            <servlet-class>ru.javawebinar.topjava.web.MealServlet</servlet-class>
+        </servlet>
 
 
-    <!--Addition user-->
-    <servlet-mapping>
-        <servlet-name>AddUserServlet</servlet-name>
-        <url-pattern>/add_meal</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AddUserServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.servlet.AddUserServlet</servlet-class>
-    </servlet>
 
 
-    <!--Delete user-->
-    <servlet-mapping>
-        <servlet-name>DeleteUserServlet</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DeleteUserServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.servlet.DeleteUserServlet</servlet-class>
-    </servlet>
 
 
-    <!--Update user-->
-    <servlet-mapping>
-        <servlet-name>UpdateUserServlet</servlet-name>
-        <url-pattern>/update</url-pattern>
-    </servlet-mapping>
+<!--    &lt;!&ndash;Index page for app&ndash;&gt;-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>GetStartPageServlet</servlet-name>-->
+<!--        <url-pattern>/</url-pattern>-->
+<!--    </servlet-mapping>-->
+<!--    <servlet>-->
+<!--        <servlet-name>GetStartPageServlet</servlet-name>-->
+<!--        <servlet-class>ru.javawebinar.topjava.servlet.GetIndexPageServlet</servlet-class>-->
+<!--    </servlet>-->
 
-    <servlet>
-        <servlet-name>UpdateUserServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.servlet.UpdateUserServlet</servlet-class>
-    </servlet>
+
+<!--    &lt;!&ndash;Addition user&ndash;&gt;-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>AddUserServlet</servlet-name>-->
+<!--        <url-pattern>/add_meal</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>AddUserServlet</servlet-name>-->
+<!--        <servlet-class>ru.javawebinar.topjava.servlet.AddUserServlet</servlet-class>-->
+<!--    </servlet>-->
+
+
+<!--    &lt;!&ndash;Delete user&ndash;&gt;-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>DeleteUserServlet</servlet-name>-->
+<!--        <url-pattern>/delete</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>DeleteUserServlet</servlet-name>-->
+<!--        <servlet-class>ru.javawebinar.topjava.servlet.DeleteUserServlet</servlet-class>-->
+<!--    </servlet>-->
+
+
+<!--    &lt;!&ndash;Update user&ndash;&gt;-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>UpdateUserServlet</servlet-name>-->
+<!--        <url-pattern>/update</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>UpdateUserServlet</servlet-name>-->
+<!--        <servlet-class>ru.javawebinar.topjava.servlet.UpdateUserServlet</servlet-class>-->
+<!--    </servlet>-->
 </web-app>
 
 
