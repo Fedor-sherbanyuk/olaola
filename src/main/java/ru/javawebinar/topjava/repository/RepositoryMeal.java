@@ -9,11 +9,11 @@ import java.util.List;
 public interface RepositoryMeal {
 
 
-    void addMealTo(Meal meal);
+    Meal save(Meal meal);
 
     void delete(int mealId) throws Exception;
 
-    Meal  updateMealTo(int mealId);
+    Meal  getIdMealTo(int mealId);
 
     Collection<Meal> getAllMealTo();
 

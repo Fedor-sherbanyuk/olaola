@@ -61,6 +61,10 @@ public class MealsUtil  {
     private static MealTo createTo(Meal meal, boolean excess) {
         return new MealTo(meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
     }
+
+    private static MealTo createToId(Meal meal, boolean excess) {
+        return new MealTo(meal.getId(),meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
+    }
     public  static List<MealTo>filteredByHtml(List<Meal> meals,int caloriesPerDay){
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(
@@ -68,7 +72,7 @@ public class MealsUtil  {
                 );
 
         return meals.stream()
-                .map(meal -> createTo(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
+                .map(meal -> createToId(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }
 }

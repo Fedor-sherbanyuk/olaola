@@ -1,43 +1,39 @@
 package ru.javawebinar.topjava.service;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealTo;
 import ru.javawebinar.topjava.repository.RepositoryMeal;
-import ru.javawebinar.topjava.util.MapManyClass;
 
-import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServiceMealTo implements RepositoryMeal {
     private Map<Integer, Meal> atomicIntegerMealToMap = new ConcurrentHashMap<>();
-    private AtomicInteger id=new AtomicInteger(0);
+    private AtomicInteger count=new AtomicInteger(0);
 
     {
 
-        atomicIntegerMealToMap.put(1, new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500));
-        atomicIntegerMealToMap.put(2, new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000));
-        atomicIntegerMealToMap.put(3, new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 20, 0), "Ужин", 500));
-        atomicIntegerMealToMap.put(4, new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 0, 0), "Еда на граничное значение", 100));
-        atomicIntegerMealToMap.put(5, new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 10, 0), "Завтрак", 1000));
-        atomicIntegerMealToMap.put(6, new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 13, 0), "Обед", 500));
-        atomicIntegerMealToMap.put(7, new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410));
+       save(new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 20, 0), "Ужин", 500));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 0, 0), "Еда на граничное значение", 100));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 10, 0), "Завтрак", 1000));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 13, 0), "Обед", 500));
+        save( new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410));
 
     }
     @Override
-    public void addMealTo(Meal meal) {
+    public Meal save(Meal meal) {
 
 if (meal.isNew()) {
-    meal.setId(id.incrementAndGet());
-    atomicIntegerMealToMap.put(meal.getId(), meal);
+    meal.setId(count.incrementAndGet());
+
 }
+        atomicIntegerMealToMap.put(meal.getId(), meal);
+      return   atomicIntegerMealToMap.get(meal.getId());
 
     }
 
@@ -54,7 +50,7 @@ if (meal.isNew()) {
     }
 
     @Override
-    public Meal updateMealTo(int mealId) {
+    public Meal getIdMealTo(int mealId) {
         return atomicIntegerMealToMap.get(mealId);
 //            if (atomicIntegerMealToMap.containsKey(new Integer(mealTo.getId()))) {
 ////            atomicIntegerMealToMap.remove(new Integer(mealTo.getId()));

@@ -7,7 +7,7 @@
 
     <servlet-mapping>
             <servlet-name>mealServlet</servlet-name>
-            <url-pattern>/meals</url-pattern>
+            <url-pattern>/mealList</url-pattern>
         </servlet-mapping>
         <servlet>
             <servlet-name>mealServlet</servlet-name>
@@ -19,7 +19,7 @@
 
 
 
-<!--    &lt;!&ndash;Index page for app&ndash;&gt;-->
+<!--   B это файл конфигурации попадает в mealServlet-->
 <!--    <servlet-mapping>-->
 <!--        <servlet-name>GetStartPageServlet</servlet-name>-->
 <!--        <url-pattern>/</url-pattern>-->

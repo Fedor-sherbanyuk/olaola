@@ -19,7 +19,7 @@
 //public class MealServletNew extends HttpServlet {
 //    private static final Logger LOG = LoggerFactory.getLogger(MealServletNew.class);
 //    private final ServiceMealTo repositoryMealTo = new ServiceMealTo();
-//    private final static String INSERT_OR_EDIT = "/meals.jsp";
+//    private final static String INSERT_OR_EDIT = "/mealList.jsp";
 //    private final static String update = "/update.jsp";
 //    private MapManyClass mapManyClass = new MapManyClass();
 //    private Map<Integer, MealTo> meals;

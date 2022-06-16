@@ -17,7 +17,7 @@
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        log.debug("redirect to users");
 //
-//   request.getRequestDispatcher("/meals.jsp").forward(request, response);
+//   request.getRequestDispatcher("/mealList.jsp").forward(request, response);
 ////        response.sendRedirect("users.jsp");
 //    }
 //}

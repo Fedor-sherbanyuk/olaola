@@ -25,7 +25,7 @@
 <section>
     <h3><a href="index.html">Home</a></h3>
     <h3>MEAL LIST</h3>
-    <a href="meals?action=create">Add Meal</a>
+    <a href="mealList?action=create">Add Meal</a>
     <hr>
 
 <table>
@@ -41,15 +41,17 @@
     </tr>
 
 <%--    <tbody>--%>
-<c:forEach items="${mealList}" var="mea">
+<c:forEach items="${m}" var="mea">
     <jsp:useBean id="mea" scope="page" type="ru.javawebinar.topjava.model.MealTo"/>
 <tr style="color:${ (mea.excess == true ? 'red' : 'lime')}; background-color: ghostwhite">
 <fmt:parseDate value="${ mea.dateTime }" pattern="yyyy-mm-dd'T'HH:mm" var="parsedDateTime" type="both"/>
     <td><fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }"/></td>
-        <td>${mea.description}/></td>
-        <td>${mea.calories}/></td>
-    <td><a href="meals?action=update&id=${mea.id}">Update</a> </td>
-    <td><a href="meals?action=delete&id=${mea.id}">Delete</a> </td>
+        <td>${mea.description}</td>
+        <td>${mea.calories}</td>
+<%--        <td>${mea.id}/></td>--%>
+
+    <td><a href="mealList?action=update&id=${mea.id}">Update</a> </td>
+    <td><a href="mealList?action=delete&id=${mea.id}">Delete</a> </td>
 <%--        <td><c:out value="${mea.excess}"/></td>--%>
 
     </tr>
