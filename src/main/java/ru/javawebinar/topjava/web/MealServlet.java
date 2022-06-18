@@ -21,9 +21,16 @@ public class MealServlet extends HttpServlet {
 
     private MealRepository repository;
 
+
     @Override
     public void init() {
         repository = new InMemoryMealRepository();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
     }
 
     @Override

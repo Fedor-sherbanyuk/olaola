@@ -22,5 +22,9 @@ public interface MealRepository {
     List<Meal> isBetweenHalfOpen(LocalDateTime localDateStart,LocalDateTime localDateEnd, Integer userid);
 
     // ORDERED dateTime desc
-    Collection<Meal> getAll(Integer userid);
+    List<Meal> getAll(Integer userid);
+
+
+
+
 }
