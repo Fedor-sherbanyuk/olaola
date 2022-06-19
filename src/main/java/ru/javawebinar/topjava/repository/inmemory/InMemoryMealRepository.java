@@ -47,12 +47,10 @@ public class InMemoryMealRepository implements MealRepository {
 
         Map<Integer,Meal> mealMaps=repository.get(userid);
 
-        for (Map.Entry<Integer, Meal> o : mealMaps.entrySet()) {
-            if (o.getValue().getUserId().equals(userid)) {
-                return mealMaps.remove(id) != null;
-            }
-        }
-        return mealMaps.remove(id) == null;
+
+                return mealMaps.remove(id) != null&& mealMaps!=null;
+
+
     }
     @Override
     public Meal get(int id, Integer userid) {
